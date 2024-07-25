@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
         });
         // In case of success
       }, (r) {
-        currenciesRates = r.rates;
+        // currenciesRates = r.rates;
 
         Navigator.pushReplacement(
             ctx,
