@@ -1,8 +1,9 @@
-import 'package:currency_exchange/core/methdos/display_error.dart';
-import 'package:currency_exchange/modules/currency_exchange/data/repos/currencies_rates.dart/currencies_rates_repo_impl.dart';
+import 'package:currency_exchange/modules/currency_exchange/data/repos/currencies_rates_repo/currencies_rates.dart/currencies_rates_repo_impl.dart';
+import 'package:currency_exchange/modules/currency_exchange/presentation/view/currencies_screen.dart';
 import 'package:flutter/material.dart';
 
 class CurrencyExchangeScreen extends StatefulWidget {
+  static const String routeName = '/currency-exchange-screen';
   const CurrencyExchangeScreen({super.key});
 
   @override
@@ -22,11 +23,11 @@ class _CurrencyExchangeScreenState extends State<CurrencyExchangeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Currency Exchange'), 
+        title: const Text('Currency Exchange'),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
-              printErrorMessageInConsole('Error');
+              Navigator.pushNamed(context, CurrenciesScreen.routeName);
             },
             icon: const Icon(Icons.menu_outlined)),
       ),

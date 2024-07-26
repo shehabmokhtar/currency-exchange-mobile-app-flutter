@@ -1,5 +1,6 @@
-import 'package:currency_exchange/core/classes/currencies_rates.dart';
-import 'package:currency_exchange/modules/currency_exchange/data/repos/currencies_rates.dart/currencies_rates_repo_impl.dart';
+import 'package:currency_exchange/core/global_variables.dart';
+import 'package:currency_exchange/core/styles/sizes.dart';
+import 'package:currency_exchange/modules/currency_exchange/data/repos/currencies_rates_repo/currencies_rates.dart/currencies_rates_repo_impl.dart';
 import 'package:currency_exchange/modules/currency_exchange/presentation/view/currency_exchange_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   bool isError = false;
+  String errorMessage = 'Error';
 
   initData(ctx) {
     CurrenciesRatesRepoImpl currenciesRatesRepoImpl = CurrenciesRatesRepoImpl();
@@ -19,13 +21,15 @@ class _SplashScreenState extends State<SplashScreen> {
       value.fold(
           // In case of error
           (l) {
-        setState(() {     
+        setState(() {
           isError = true;
+          errorMessage = l;
         });
         // In case of success
       }, (r) {
-        // currenciesRates = r.rates;
+        currenciesRates = r;
 
+        // Navigate to the hoem screen and reomte all previous routes
         Navigator.pushReplacement(
             ctx,
             MaterialPageRoute(
@@ -36,11 +40,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Sizes.init(context);
     return FutureBuilder(
       future: initData(context),
       builder: (context, snapshot) => Scaffold(
         body: isError
-            ? const Center(child: Text('Error'))
+            ? Center(child: Text(errorMessage))
             : const Center(child: CircularProgressIndicator()),
       ),
     );

@@ -20,11 +20,10 @@ class CurrenciesResponseModel extends Equatable {
   }
 
   List<Map<String, dynamic>>? _getRatesList(json) {
-    // Extract the rates map
-    Map<String, dynamic> rates = json;
 
     // Convert the rates map to a list of maps
-    List<Map<String, dynamic>> ratesList = rates.entries.map((entry) {
+    List<Map<String, dynamic>> ratesList =
+        (json as Map<String, dynamic>).entries.map((entry) {
       return {'currency': entry.key, 'rate': entry.value};
     }).toList();
 
